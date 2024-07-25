@@ -1,4 +1,3 @@
-```markdown
 # Tutoriel pour soumettre une demande d'upload de paquets sur le Github Communautaire de Comitari
 
 Ce tutoriel vous guide à travers les étapes pour soumettre une demande d'upload de code sur notre dépot en utilisant une pull request.
@@ -79,6 +78,5 @@ Ce tutoriel vous guide à travers les étapes pour soumettre une demande d'uploa
    - Une fois que vos modifications sont approuvées, les mainteneurs du dépôt original fusionneront votre pull request dans le dépôt principal.
 
 Félicitations ! Vous avez soumis une demande d'upload de code sur GitHub en utilisant une pull request.
-```
 
 Vous pouvez copier ce texte et le coller dans un fichier Markdown (`.md`) ou directement dans un éditeur Markdown pour le visualiser.
