@@ -1,4 +1,4 @@
-# Tutoriel pour soumettre une demande d'upload de paquets sur le Github Communautaire de Comitari
+# :mage_man: Comment soumettre une demande d'upload de paquets ?
 
 Ce tutoriel vous guide à travers les étapes pour soumettre une demande d'upload de code sur notre dépot en utilisant une pull request.
 
