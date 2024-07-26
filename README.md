@@ -32,6 +32,9 @@ Pour en savoir plus sur [WAPT](https://www.tranquil.it/wapt/).
 </br>
 
 Les paquets non validés par nos admins/devs seront marqués d'un **tag** 
+
+</br>
+
 Certains paquets pourront être validés par nos admins/devs un **tag** l'indiquera au dessus de celui ci
 
 </br>
