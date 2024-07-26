@@ -3,7 +3,9 @@
 </div>
 
 
-# Dépôt Communautaire de Paquets WAPT
+<div align="center">
+  <h1>Dépôt Communautaire de Paquets WAPT</h1>
+</div>
 
 ## :warning: Avertissement
 
