@@ -31,14 +31,18 @@ Pour en savoir plus sur [WAPT](https://www.tranquil.it/wapt/).
 
 </br>
 
-Les paquets non validés par nos admins/devs seront marqués d'un **tag** <div style="background-color: white; padding: 10px; color: black;">
+Les paquets non validés par nos admins/devs seront marqués d'un **tag** 
+
+<div style="background-color: white; padding: 10px; color: black;">
   <p>Non-vérifié</p>
 </div>
 
 
 </br>
 
-Certains paquets pourront être validés par nos admins/devs un **tag** <div style="background-color: green; padding: 10px; color: white;">
+Certains paquets pourront être validés par nos admins/devs un **tag**
+
+<div style="background-color: green; padding: 10px; color: white;">
   <p>Vérifié</p>
 </div>
  l'indiquera au dessus de celui ci
