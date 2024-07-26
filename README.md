@@ -9,7 +9,7 @@
 
 
 
-## :book: Description
+## Description
 
 Ce dépôt est une collection communautaire de paquets WAPT. Les contributeurs peuvent soumettre leurs propres paquets ou récupérer des paquets existants pour les utiliser dans leurs propres projets. L'objectif est de fournir un emplacement centralisé pour partager et découvrir des paquets WAPT créés par la communauté.
 Pour utiliser les paquets de ce dépôt, aucuns prérequis sont nécessaires. 
@@ -20,6 +20,6 @@ Pour en savoir plus sur [WAPT](https://www.tranquil.it/wapt/).
 
 
 
-## :mag_right: Utilisation
+## Utilisation
 
 Regardez le howto.md :shipit:
