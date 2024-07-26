@@ -33,19 +33,16 @@ Pour en savoir plus sur [WAPT](https://www.tranquil.it/wapt/).
 
 Les paquets non validés par nos admins/devs seront marqués d'un **tag** 
 
-<div style="background-color: white; padding: 10px; color: black;">
-  <p>Non-vérifié</p>
-</div>
-
 
 </br>
 
 Certains paquets pourront être validés par nos admins/devs un **tag**
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
 
-<div style="background-color: green; padding: 10px; color: white;">
-  <p>Vérifié</p>
-</div>
- l'indiquera au dessus de celui ci
+
+
+
 
 </br>
 
