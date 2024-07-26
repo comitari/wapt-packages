@@ -12,7 +12,7 @@
 </br>
 
 
-## :warning: Avertissement
+## :bulb: Avertissement
 
 **Attention :** L'utilisation des paquets de ce dépôt signifie que vous comprenez qu'ils ne sont pas supportés ni garantis de quelque manière que ce soit. En raison de la nature d'un dépôt public et de l'incertitude liée aux droits de distribution, ces paquets doivent être **testés** et validés avant d'être poussés en prod.
 
@@ -29,6 +29,7 @@ Pour installer les paquets, vous allez devoir les uploader sur votre serveur WAP
 Pour en savoir plus sur [WAPT](https://www.tranquil.it/wapt/).
 
 
+</br>
 
 
 
