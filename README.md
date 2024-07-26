@@ -1,3 +1,8 @@
+<div align="right">
+  <img src="https://www.wapt.fr/fr/doc/_images/icon_wapt_all.png" alt="WAPT Logo" width="100" height="100">
+</div>
+
+
 # Dépôt Communautaire de Paquets WAPT
 
 ## :warning: Avertissement
