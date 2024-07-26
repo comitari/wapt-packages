@@ -1,5 +1,5 @@
 <div align="right">
-  <img src="https://www.wapt.fr/fr/doc/_images/icon_wapt_all.png" alt="WAPT Logo" width="100" height="100">
+  <img src="https://www.wapt.fr/fr/doc/_images/icon_wapt_all.png" alt="WAPT Logo" width="500" height="100">
 </div>
 
 
