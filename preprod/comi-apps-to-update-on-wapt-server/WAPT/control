@@ -1,0 +1,44 @@
+package           : comi-apps-to-update-on-wapt-server
+version           : 0-17
+architecture      : all
+section           : base
+priority          : optional
+name              : apps-to-update-on-wapt-server
+version           : 0-16
+categories        : Utilities
+maintainer        : Comitari,pcosson
+description       : Package to audit the wapt-server and generate an alert
+conflicts         : 
+maturity          : PROD
+locale            : all
+target_os         : all
+min_wapt_version  : 2.3
+sources           : 
+installed_size    : 
+impacted_process  : 
+description_fr    : 
+description_pl    : 
+description_de    : 
+description_es    : 
+description_pt    : 
+description_it    : 
+description_nl    : 
+description_ru    : 
+audit_schedule    : 1d
+editor            : 
+keywords          : 
+licence           : opensource_free,wapt_public
+homepage          : 
+package_uuid      : 
+valid_from        : 
+valid_until       : 
+forced_install_on : 
+changelog         : 
+min_os_version    : 
+max_os_version    : 
+icon_sha256sum    : 
+signer            : 
+signer_fingerprint: 
+signature_date    : 
+signed_attributes : 
+signature         : 

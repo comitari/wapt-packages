@@ -1,0 +1,41 @@
+# Do not commit binaries:
+*.exe
+*.msu
+*.msi
+*.zip
+*.rpm
+*.deb
+*.yum
+*.dmg
+*.vsix
+*.appx
+*.appxbundle
+*.msix
+*.msixbundle
+*.iso
+*.cab
+*.pkg
+*.jar
+*.msp
+*.part
+*.bak
+
+# Do not commit generated WAPT files:
+*.pyc
+*.crt
+*.sha256
+*.wapt
+.env
+*.psproj
+**/.vscode/
+signature
+*.sha1
+
+# Do not commit template part:
+template.py
+.vscode/*.json
+code_template.cmd
+/template
+package_template.py
+
+# Specific to this package (use ! as prefix to allow commit):
