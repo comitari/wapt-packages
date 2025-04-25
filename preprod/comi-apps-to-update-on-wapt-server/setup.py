@@ -3,55 +3,12 @@ from setuphelpers import *
 import requests
 import json
 import smtplib
+import waptlicences
 from configparser import ConfigParser
 from waptpackage import HostCapabilities
 from waptpackage import WaptRemoteRepo
 from waptpackage import PackageVersion
-
-all_package = {}
-
-dict_host_capa = {
-    "ubuntu22frx64": HostCapabilities(
-        architecture="x64",
-        language="fr",
-        os="ubuntu",
-        packages_locales=["fr", "en", "es", "de", "it"],
-        tags=["debian", "debian_based", "linux", "unix", "debian11", "ubuntu-22"],
-        os_version="11",
-    ),
-    "ubuntu20frx64": HostCapabilities(
-        architecture="x64",
-        language="fr",
-        os="ubuntu",
-        packages_locales=["fr", "en", "es", "de", "it"],
-        tags=["debian", "debian_based", "linux", "unix", "debian11", "ubuntu-20"],
-        os_version="11",
-    ),
-    "debian11frx64": HostCapabilities(
-        architecture="x64",
-        language="fr",
-        os="debian",
-        packages_locales=["fr", "en", "es", "de", "it"],
-        tags=["debian-bullseye", "debian", "debian_based", "linux", "unix", "debian11", "debian-11"],
-        os_version="11",
-    ),
-    "debian12frx64": HostCapabilities(
-        architecture="x64",
-        language="fr",
-        os="debian",
-        packages_locales=["fr", "en", "es", "de", "it"],
-        tags=["debian-bookworm", "debian", "debian_based", "linux", "unix", "debian12", "debian-12"],
-        os_version="11",
-    ),
-    "win10x64fr": HostCapabilities(
-        architecture="x64",
-        language="fr",
-        os="windows",
-        packages_locales=["fr", "en", "es", "de", "it"],
-        tags=["windows-10", "win-10", "w-10", "windows10", "win10", "w10", "windows", "win", "w"],
-        os_version="10.0.19043",
-    ),
-}
+from common import get_requests_client_cert_session
 
 def install():
     plugin_inifiles = glob.glob("*.ini")
@@ -62,26 +19,63 @@ def install():
             filecopyto(file, WAPT.private_dir)
 
 def audit():
-    plugin_inifile = makepath(WAPT.private_dir, "wapt_api.ini")
-    conf_wapt = ConfigParser()
-    conf_wapt.read(plugin_inifile)
-    wapt_url = conf_wapt.get("wapt", "wapt_url")
-    wapt_user = conf_wapt.get("wapt", "wapt_username")
-    wapt_password = conf_wapt.get("wapt", "wapt_password")
 
-    app_to_update_json_path = makepath(WAPT.private_dir, "app_to_update.json")
-    if isfile(app_to_update_json_path):
-        print("suppression de l'ancienne version du fichier json")
-        remove_file(app_to_update_json_path)
+    CONFWAPT = ConfigParser()
+    CONFWAPT.read(makepath(WAPT.private_dir, "wapt_api.ini"))
+    username_wapt = CONFWAPT.get("wapt", "wapt_username")
+    password_wapt = CONFWAPT.get("wapt", "wapt_password")
 
-    store = WaptRemoteRepo(name="main", url="https://wapt.tranquil.it/wapt", timeout=4, verify_cert=False)
-    localstore = WaptRemoteRepo(name="main", url="https://srvwapt.comitari.fr/wapt", timeout=4, verify_cert=False)
+    dict_host_capa = {}
+
+    t = waptlicences.waptserver_login(WAPT.config_filename,username_wapt,password_wapt)
+    if not 'session' in t['session_cookies']:
+        session_cookies = [u for u in t['session_cookies'] if u['Domain'] == WAPT.waptserver.server_url.split('://')[-1]][0]
+    else:
+        session_cookies = t['session_cookies']['session']
+        session_cookies['Name'] = 'session'
+
+    client_private_key_password = t["client_private_key_password"]
+
+    sessionwapt = get_requests_client_cert_session(WAPT.waptserver.server_url,cert=(t['client_certificate'],t['client_private_key'],t['client_private_key_password']),verify=WAPT.waptserver.verify_cert)
+    sessionwapt.cookies.set(session_cookies['Name'], session_cookies['Value'], domain=session_cookies['Domain'])
+    sessionwapt.verify = WAPT.waptserver.verify_cert
+
+    for pc in json.loads(sessionwapt.get("%s/api/v3/hosts?columns=host_capabilities&limit=1000000" % WAPT.waptserver.server_url).content)["result"]:
+        if not pc['host_capabilities']:
+            continue
+
+        dict_capa = dict(architecture= pc['host_capabilities']['architecture'],
+            language=pc['host_capabilities']['language'],
+            os=pc['host_capabilities']['os'],
+            packages_locales= sorted(pc['host_capabilities']['packages_locales']),
+            tags=sorted(pc['host_capabilities']['tags']),
+            os_version=pc['host_capabilities']['os_version'])
+
+        tempo_capa = HostCapabilities(**dict_capa)
+
+        dict_host_capa[str(dict_capa)] = tempo_capa
+
+    store = WaptRemoteRepo(name="main", url='https://wapt.tranquil.it/wapt', timeout=4, verify_cert=True)
+    localstore = WaptRemoteRepo(name="main", url= WAPT.waptserver.server_url + '/wapt', timeout=4, verify_cert=WAPT.waptserver.verify_cert)
+
+    store_packages = store.packages()
+
+    localstore.client_certificate = t['client_certificate']
+    localstore.client_private_key = t['client_private_key']
+
+    def give_password(location=None,identity=None):
+        return client_private_key_password
+
+    localstore.private_key_password_callback = give_password
+
+    store_localstore = localstore.packages()
+
     # Download JSON data from the URL
     online_package_list = {}
     local_package_list = {}
     for hc in dict_host_capa:
         online_package_version = {}
-        for packageentry in store.packages():
+        for packageentry in store_packages:
             if dict_host_capa[hc].is_matching_package(packageentry):
                 if not packageentry.package in online_package_version:
                     online_package_version[packageentry.package] = "0"
@@ -91,7 +85,7 @@ def audit():
 
     for hc in dict_host_capa:
         local_package_version = {}
-        for packageentry in localstore.packages():
+        for packageentry in store_localstore:
             if dict_host_capa[hc].is_matching_package(packageentry):
                 if not packageentry.package in local_package_version:
                     local_package_version[packageentry.package] = "0"
